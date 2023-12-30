@@ -1,12 +1,10 @@
 from TTS.tts.utils.text.phonemizers.base import BasePhonemizer
-import sys
-sys.path.insert(0, '/Users/seocahill/code/foss/g2p')
 from g2p import make_g2p
 
 class GA_Phonemizer(BasePhonemizer):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self._g2p = make_g2p('ga', 'ipa')
+        self._g2p = make_g2p('ga', 'ga-ipa')
 
     @staticmethod
     def name():
