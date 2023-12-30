@@ -1,21 +1,34 @@
 from TTS.tts.utils.text.phonemizers.base import BasePhonemizer
 import sys
-sys.path.insert(0, '../g2p')
+sys.path.insert(0, '/Users/seocahill/code/foss/g2p')
 from g2p import make_g2p
-
-# I can base the mapping on this https://en.wikipedia.org/wiki/Help:IPA/Irish
 
 class GA_Phonemizer(BasePhonemizer):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # https://blog.mothertongues.org/g2p-background/
-        self._g2p = make_g2p('ga', 'ipa')  # 'ga' is the language code for Irish Gaelic
+        self._g2p = make_g2p('ga', 'ipa')
 
     @staticmethod
     def name():
         return "ga_phonemizer"
 
-    def phonemize(self, text, language, **kwargs):
+    def _phonemize(self, text, separator):
         phonemes = self._g2p(text)
         return ' '.join(phonemes)
 
+    @classmethod
+    def is_available(cls):
+        # return True if the backend is available, False otherwise
+        return True
+
+    @classmethod
+    def version(cls):
+        # return the backend version as a tuple (major, minor, patch)
+        return "0.0.1"
+
+    @staticmethod
+    def supported_languages():
+        # return a dict of language codes -> name supported by the backend
+        return {"ga": "Irish"}
+
+        # https://blog.mothertongues.org/g2p-background/

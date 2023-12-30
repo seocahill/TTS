@@ -7,9 +7,6 @@ from TTS.tts.utils.text.phonemizers.ko_kr_phonemizer import KO_KR_Phonemizer
 from TTS.tts.utils.text.phonemizers.zh_cn_phonemizer import ZH_CN_Phonemizer
 from TTS.tts.utils.text.phonemizers.ga_phonemizer import GA_Phonemizer
 
-PHONEMIZERS[GA_Phonemizer.name()] = GA_Phonemizer
-DEF_LANG_TO_PHONEMIZER["ga"] = GA_Phonemizer.name()
-
 try:
     from TTS.tts.utils.text.phonemizers.ja_jp_phonemizer import JA_JP_Phonemizer
 except ImportError:
@@ -17,8 +14,6 @@ except ImportError:
     pass
 
 PHONEMIZERS = {b.name(): b for b in (ESpeak, Gruut, KO_KR_Phonemizer, BN_Phonemizer)}
-
-
 ESPEAK_LANGS = list(ESpeak.supported_languages().keys())
 GRUUT_LANGS = list(Gruut.supported_languages())
 
@@ -34,6 +29,9 @@ _ = [ESpeak.name()] * len(ESPEAK_LANGS)
 _new_dict = dict(list(zip(list(ESPEAK_LANGS), _)))
 DEF_LANG_TO_PHONEMIZER.update(_new_dict)
 
+# Add ga
+PHONEMIZERS[GA_Phonemizer.name()] = GA_Phonemizer
+DEF_LANG_TO_PHONEMIZER["ga"] = GA_Phonemizer.name()
 
 # Force default for some languages
 DEF_LANG_TO_PHONEMIZER["en"] = DEF_LANG_TO_PHONEMIZER["en-us"]
@@ -76,6 +74,8 @@ def get_phonemizer_by_name(name: str, **kwargs) -> BasePhonemizer:
         return BN_Phonemizer(**kwargs)
     if name == "be_phonemizer":
         return BEL_Phonemizer(**kwargs)
+    if name == "ga_phonemizer":
+        return GA_Phonemizer(**kwargs)
     raise ValueError(f"Phonemizer {name} not found")
 
 
