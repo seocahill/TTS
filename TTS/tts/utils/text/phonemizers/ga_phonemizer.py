@@ -12,7 +12,7 @@ class GA_Phonemizer(BasePhonemizer):
 
     def _phonemize(self, text, separator):
         phonemes = self._g2p(text)
-        return ' '.join(phonemes)
+        return phonemes.output_string
 
     @classmethod
     def is_available(cls):
