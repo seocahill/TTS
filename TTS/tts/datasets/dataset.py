@@ -307,9 +307,9 @@ class TTSDataset(Dataset):
         new_samples = []
         for item in samples:
             audio_length = get_audio_size(item["audio_file"])
-            text_lenght = len(item["text"])
+            text_length = len(item["text"])
             item["audio_length"] = audio_length
-            item["text_length"] = text_lenght
+            item["text_length"] = text_length
             new_samples += [item]
         return new_samples
 
